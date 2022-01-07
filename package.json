@@ -1,0 +1,30 @@
+{
+  "name": "otcmarketsproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VicenzoMantilla/otcmarketsProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VicenzoMantilla/otcmarketsProject/issues"
+  },
+  "homepage": "https://github.com/VicenzoMantilla/otcmarketsProject#readme",
+  "dependencies": {
+    "@wdio/cli": "^7.16.12",
+    "jest": "^27.4.7"
+  },
+  "devDependencies": {
+    "@wdio/jasmine-framework": "^7.16.11",
+    "@wdio/local-runner": "^7.16.12",
+    "@wdio/spec-reporter": "^7.16.11",
+    "chromedriver": "^97.0.0",
+    "wdio-chromedriver-service": "^7.2.6"
+  }
+}
