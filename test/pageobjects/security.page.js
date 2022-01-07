@@ -1,12 +1,9 @@
 class Security {
-    get securityMarketText () {
-        return $('div.sc-bdVaJa.ensNgD > b > span._1xIUVEWewx > span > label').getText()
-    }
     get securityMarketValue () {
-        return $('div._8AXJn4ourf.sc-htpNat.jtWIOA.sc-bdVaJa.gRrvFh > div.sc-bdVaJa.kYmYWE').getText()
+        return $('//div[2]/div/div/div[1]/div[2]/div/div[2]/div/div[2]/div[2]')
     }
     get securityMarketDate () {
-        return $('div._8AXJn4ourf.sc-htpNat.jtWIOA.sc-bdVaJa.gRrvFh > div.sc-bdVaJa.fKInnm').getText()
+        return $('h4+div div:nth-child(3)')
     }
 }
 module.exports = new Security();

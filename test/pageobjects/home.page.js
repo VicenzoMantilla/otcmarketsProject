@@ -1,19 +1,17 @@
 class Home {
     get inputSearch () {
-        return $('div._2LtWySGSlk.sc-htpNat.fzUmoZ.sc-bdVaJa.iHZvIS > div.sc-bdVaJa.kjdvDm > div._3XTsBmZSmj > div > input')
+        return $(`(//input[@placeholder='Quote'])[1]`)
     };
-    get searchResult () {
-        return $('div._2LtWySGSlk.sc-htpNat.fzUmoZ.sc-bdVaJa.iHZvIS > div.sc-bdVaJa.kjdvDm > div._3XTsBmZSmj > div > div > div.Rnxv8ImvYu')
+    get searchFound () {
+        return $(`(//img[@src='/icons/tier/qx.png'])[1]`)
     };
-    get searchTextResult (){
-        return $('div._2LtWySGSlk.sc-htpNat.fzUmoZ.sc-bdVaJa.iHZvIS > div.sc-bdVaJa.kjdvDm > div._3XTsBmZSmj > div > div > div.Rnxv8ImvYu').getText();
-    }
-    setValueForSearch (company) {
+    
+    setValueForSearch (companyName) {
         this.inputSearch.click();
-        this.inputSearch.setValue(company);
+        this.inputSearch.setValue(companyName);
     };
-    clickSearch (){
-        this.searchResult.click();
+    clickTab (){
+        this.searchFound.click();
     }
     open = () => {
         return browser.url('https://www.otcmarkets.com/');

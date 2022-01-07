@@ -1,51 +1,24 @@
 class Quote {
-    get quoteBtnOtcm () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/OTCM/quote"]')
-    }
-    get quoteBtnRhhby () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/RHHBY/quote"]')
-    }
-    get quoteBtnAdbcf () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/ADBCF/quote"]')
+    get quoteBtn () {
+        return $('a[href$="Quote"]')
     }
     get companyName () {
-        return $('h1._2D4XgQ0gJK').getText()
+        return $('h1:first-child')
     }
-    get companyImg () {
-        return $('div.ln9E-VnEyg > span > span >img').getAttribute('src')
-    }
-    get securityBtmOtcm () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/OTCM/security"]')
-    }
-    get securityBtmRhhby () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/RHHBY/security"]')
-    }
-    get securityBtmAdbcf () {
-        return $('div._2H94cIcGl1.sc-bdVaJa.fSzdHl > a[href="/stock/ADBCF/security"]')
+    get securityBtn() {
+        return $('a[href$="security"]')
     }
     get openValue () {
-        return $('div._1G7n38q1bb.sc-bdVaJa.lbvrig > p').getText()
+        return $('//label[contains("Open")]/following-sibling::p');
     }
     get marketCapValue () {
-        return $$('div._1G7n38q1bb.sc-bdVaJa.lbvrig > p').getText()
+        return $('span + p');
     }
-    quoteSectionOtcm () {
-        this.quoteBtnOtcm.click();
+    quoteSectionBtn () {
+        this.quoteBtn.click();
     }
-    quoteSectionRhhby () {
-        this.quoteBtnRhhby.click();
-    }
-    quoteSectionAdbcf () {
-        this.quoteBtnAdbcf.click();
-    }
-    SectionOtcm () {
-        this.securityBtmOtcm.click();
-    }
-    SectionRhhby () {
-        this.securityBtmRhhby.click();
-    }
-    SectionAdbcf () {
-        this.securityBtmAdbcf.click();
+    securitySectionBtn () {
+        this.securityBtn.click();
     }
 }
 module.exports = new Quote();
