@@ -42,7 +42,7 @@ describe('RHHBY Markets Cycle',()=>{
         it('It should redirect to Security/Details section', async () => {
             await Quote.securitySectionBtn();
             await browser.pause(2000);
-            await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/ADBCF/security');
+            await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/RHHBY/security');
         });
         it('Market Cap value from Security should match the one in Quote section', async () => {
             secMarketCap = await Security.marketCapSecValue.getText();

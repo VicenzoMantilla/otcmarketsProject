@@ -2,7 +2,10 @@ const Home = require('../pageobjects/home.page');
 const Quote = require('../pageobjects/quote.page');
 const Security = require('../pageobjects/security.page');
 
-let quoteOpenValue, quoteMarketCap, secMarketCap, secDate;
+let quoteOpenValue
+let quoteMarketCap
+let secMarketCap
+let secDate
 
 describe('OTC Markets Cycle',()=>{
     beforeAll('Open the main page', async ()=>{
@@ -44,6 +47,8 @@ describe('OTC Markets Cycle',()=>{
             await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/OTCM/security');
         });
         it('Market Cap value from Security should match the one in Quote section', async () => {
+            await Security.marketCapQuoteValue.isDisplayedInViewport();
+            await Security.marketCapSecDate.isDisplayedInViewport();
             secMarketCap = await Security.marketCapSecValue.getText();
             secDate = await Security.marketCapSecDate.getText();
             await expect(secMarketCap).toEqual(quoteMarketCap);
