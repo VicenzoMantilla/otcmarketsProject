@@ -2,48 +2,53 @@ const Home = require('../pageobjects/home.page');
 const Quote = require('../pageobjects/quote.page');
 const Security = require('../pageobjects/security.page');
 
-describe('otc markets',()=>{
-    beforeAll('Open the main page',()=>{
-        Home.open();
+let quoteOpenValue
+let quoteMarketCap
+let secMarketCap
+let secDate
+
+describe('RHHBY Markets Cycle',()=>{
+    beforeAll('Open the main page', async ()=>{
+        await Home.open();
     });
-    describe('Check if the browser is correct',()=>{
-        it('The url is correct',()=>{
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/');
+    describe('Check the cycle e2e for RHHBY',()=>{
+        it('The url display should be correct', async ()=>{
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/');
         });
-    });
-    describe('Check that the search works',()=>{
-        it('Check the search is correct',()=>{
-            Home.setValueForSearch('RHHBY');
-            expect(Home.searchTextResult).toHaveTextContaining('Roche Holding Ltd');
+        it('Searching for RHHBY on the input text should be successful ', async ()=>{
+            await Home.inputSearch.isDisplayedInViewport();
+            await Home.setValueForSearch('rhhby');
+            await Home.inputSearch.waitForClickable();
+            await browser.pause(2000)
+            await Home.searchFound.click();
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/overview')
         });
-        it('Check if the search is done correctly',()=>{
-            Home.clickSearch();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/overview');
+        it('The search result should match with the Company Name', async ()=>{
+            await browser.pause(2000)
+            await Quote.companyName.isDisplayedInViewport();
+            await expect(Quote.companyName).toHaveText('RHHBY');
         });
-    });
-    describe('Check the navegation to Quote section',()=>{
-        it('Check to stand on the qoute section',()=>{
-            Quote.quoteSectionRhhby();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/quote');
+        it('It Should redirect to the Quote section', async ()=>{
+            await Quote.quoteSectionBtn();
+            await browser.pause(2000)
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/quote');
         });
-    });
-    describe('Check the Name and Logo of the company',()=>{
-        it('check that the name matches the one searched for',()=>{
-            expect(Quote.companyName).toHaveText('RHHBY');
+        it('Get & save the open/market cap values', async ()=>{
+            await Quote.openValue.isDisplayedInViewport();
+            await Quote.marketCapValue.isDisplayedInViewport();
+            quoteOpenValue = await Quote.openValue.getText();
+            marketCapQuoteValue = await Quote.marketCapValue.getText();
         });
-        it('Check the image is not right with the Name',()=>{
-            expect(Quote.companyImg).toHaveLink('/logos/tier/QX.png');
+        it('It should redirect to Security/Details section', async () => {
+            await Quote.securitySectionBtn();
+            await browser.pause(2000);
+            await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/ADBCF/security');
         });
-    });
-    describe('Check the navegation to security is correct',()=>{
-        it('Check that the browser has the correct url',()=>{
-            Quote.SectionRhhby();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/security');
-        });
-    });
-    describe('Check for the Market Cap between Quote & Security sections match',()=>{
-        it('Check that the market cap value match',()=>{
-            expect(Quote.marketCapValue[10]).toEqual(Security.securityMarketValue);
-        });
-    });
+        it('Market Cap value from Security should match the one in Quote section', async () => {
+            secMarketCap = await Security.marketCapSecValue.getText();
+            secDate = await Security.marketCapSecDate.getText();
+            await expect(secMarketCap).toEqual(quoteMarketCap);
+            console.log("Market Cap: " + secMarketCap + " - " +  marketCapSecDate);
+        })
+    })
 })

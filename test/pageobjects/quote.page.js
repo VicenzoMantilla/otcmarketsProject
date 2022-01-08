@@ -1,6 +1,6 @@
 class Quote {
     get quoteBtn () {
-        return $('a[href$="Quote"]')
+        return $('a[href$="quote"]')
     }
     get companyName () {
         return $('h1:first-child')
@@ -9,7 +9,7 @@ class Quote {
         return $('a[href$="security"]')
     }
     get openValue () {
-        return $('//label[contains("Open")]/following-sibling::p');
+        return $('//label[contains(.,"Open)]/following-sibling::p');
     }
     get marketCapValue () {
         return $('span + p');
@@ -21,4 +21,4 @@ class Quote {
         this.securityBtn.click();
     }
 }
-module.exports = new Quote();
+module.exports = new Quote(); 

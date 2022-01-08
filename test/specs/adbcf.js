@@ -2,43 +2,51 @@ const Home = require('../pageobjects/home.page');
 const Quote = require('../pageobjects/quote.page');
 const Security = require('../pageobjects/security.page');
 
-describe('otc markets',()=>{
-    beforeAll('Open the main page',()=>{
-        Home.open();
+let quoteOpenValue
+let quoteMarketCap
+let secMarketCap
+let secDate
+
+describe('ADBCF Markets Cycle',()=>{
+    beforeAll('Open the main page', async ()=>{
+        await Home.open();
     });
-    describe('Check if the browser is correct',()=>{
-        it('The url is correct',()=>{
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/');
+    describe('Check the cycle e2e for ADBCF',()=>{
+        it('The url display should be correct', async ()=>{
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/');
         });
-    });
-    describe('Check that the search works',()=>{
-        it('Check the search is correct',()=>{
-            Home.setValueForSearch('ADBCF');
-            expect(Home.searchTextResult).toHaveTextContaining('ADBRI Limited');
+        it('Searching for ADBCF on the input text should be successful ', async ()=>{
+            await Home.inputSearch.isDisplayedInViewport();
+            await Home.setValueForSearch('adbcf');
+            await Home.inputSearch.waitForClickable();
+            await browser.pause(2000)
+            await Home.searchFound.click();
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/ADBCF/overview')
         });
-        it('Check if the search is done correctly',()=>{
-            Home.clickSearch();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/ADBCF/overview');
+        it('The search result should match with the Company Name', async ()=>{
+            await browser.pause(2000)
+            await Quote.companyName.isDisplayedInViewport();
+            await expect(Quote.companyName).toHaveText('ADBCF');
         });
-    });
-    describe('Check the navegation to Quote section',()=>{
-        it('Check to stand on the qoute section',()=>{
-            Quote.quoteSectionAdbcf();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/ADBCF/quote');
+        it('It Should redirect to the Quote section', async ()=>{
+            await Quote.quoteSectionBtn();
+            await browser.pause(2000)
+            await expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/ADBCF/quote');
         });
-    });
-    describe('Check the Name and Logo of the company',()=>{
-        it('check that the name matches the one searched for',()=>{
-            expect(Quote.companyName).toHaveText('ADBCF');
+        it('Get & save the open/market cap values', async ()=>{
+            await Quote.openValue.isDisplayedInViewport();
+            quoteOpenValue = await Quote.openValue.getText();
         });
-        it('Check that the image has the link expected',()=>{
-            expect(Quote.companyImg).toHaveLink('/logos/tier/PS.png');
+        it('It should redirect to Security/Details section', async () => {
+            await Quote.securitySectionBtn();
+            await browser.pause(2000)
+            await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/ADBCF/security');
         });
-    });
-    describe('Check the navegation to security is correct',()=>{
-        it('Check that the browser has the correct url',()=>{
-            Quote.SectionAdbcf();
-            expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/RHHBY/security');
+        it('Market Cap value from Security should match the one in Quote section', async () => {
+            secMarketCap = await Security.marketCapSecValue.getText();
+            secDate = await Security.marketCapSecDate.getText();
+            await expect(secMarketCap).toEqual(quoteMarketCap);
+            console.log("Market Cap: " + secMarketCap + " - " +  marketCapSecDate);
         });
-    });
+    })
 })
