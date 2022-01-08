@@ -3,7 +3,6 @@ const Quote = require('../pageobjects/quote.page');
 const Security = require('../pageobjects/security.page');
 
 let quoteOpenValue
-let quoteMarketCap
 let secMarketCap
 let secDate
 
@@ -25,18 +24,20 @@ describe('OTC Markets Cycle',()=>{
         });
         it('The search result should match with the Company Name', async ()=>{
             await browser.pause(2000)
-            await Quote.companyName.isDisplayedInViewport();
+            await Quote.companyName.waitForDisplayed();
             await expect(Quote.companyName).toHaveText('OTCM');
         });
         it('It Should redirect to the Quote section', async ()=>{
-            await Quote.quoteBtn.isDisplayedInViewport()
+            await Quote.quoteBtn.waitForDisplayed();
+            await Quote.quoteBtn.scrollIntoView();
             await Quote.quoteSectionBtn();
             await browser.pause(2000)
             await expect(browser).toHaveUrl('https://www.otcmarkets.com/stock/OTCM/quote');
         });
         it('Get & save the open/market cap values', async ()=>{
-            await Quote.openValue.isDisplayedInViewport();
-            await Quote.marketCapValue.isDisplayedInViewport();
+            await Quote.openValue.waitForDisplayed();
+            await Quote.marketCapValue.waitForDisplayed();
+            await Quote.openValue.scrollIntoView();
             quoteOpenValue = await Quote.openValue.getText();
             marketCapQuoteValue = await Quote.marketCapValue.getText();
         });
@@ -47,12 +48,12 @@ describe('OTC Markets Cycle',()=>{
             await expect(browser).toHaveUrlContaining('https://www.otcmarkets.com/stock/OTCM/security');
         });
         it('Market Cap value from Security should match the one in Quote section', async () => {
-            await Security.marketCapQuoteValue.isDisplayedInViewport();
-            await Security.marketCapSecDate.isDisplayedInViewport();
-            secMarketCap = await Security.marketCapSecValue.getText();
-            secDate = await Security.marketCapSecDate.getText();
-            await expect(secMarketCap).toEqual(quoteMarketCap);
-            console.log("Market Cap: " + secMarketCap + " - " +  marketCapSecDate);
+            await Security.securityMarketValue.waitForDisplayed();
+            await Security.securityMarketDate.waitForDisplayed();
+            secMarketCap = await Security.securityMarketValue.getText();
+            secDate = await Security.securityMarketDate.getText();
+            console.log("Market Cap: " + secMarketCap + " - " +  secDate);
+            await expect(secMarketCap).toEqual(marketCapQuoteValue);
         });
     })
 })

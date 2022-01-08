@@ -9,7 +9,7 @@ class Quote {
         return $('a[href$="security"]')
     }
     get openValue () {
-        return $(`(//div[@class='_1G7n38q1bb'])[1]/p`);
+        return $(`//label[contains(.,"Open")]/following-sibling::p`)
     }
     get marketCapValue () {
         return $('span + p');

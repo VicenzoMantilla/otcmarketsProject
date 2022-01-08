@@ -1,6 +1,6 @@
 class Security {
     get securityMarketValue () {
-        return $('h4+div div:nth-child(2)')
+        return $('//div[2]/div/div/div[1]/div[2]/div/div[2]/div/div[2]/div[2]');
     }
     get securityMarketDate () {
         return $('h4+div div:nth-child(3)')

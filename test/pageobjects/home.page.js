@@ -5,14 +5,14 @@ class Home {
     get searchFound () {
         return $(`(//img[@src='/icons/tier/qx.png'])[1]`)
     };
+    get searchImg () {
+        return $(`(//img[@src='/icons/tier/ps.png'])[1]`)
+    }
     
     setValueForSearch (companyName) {
         this.inputSearch.click();
         this.inputSearch.setValue(companyName);
     };
-    clickTab (){
-        this.searchFound.click();
-    }
     open = () => {
         return browser.url('https://www.otcmarkets.com/');
     }

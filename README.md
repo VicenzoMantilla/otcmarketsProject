@@ -8,3 +8,5 @@
 ## Get Started
     You can run the test with the next line:
      npm run start
+## Get Started
+    QA: Vicenzo Mantilla.
