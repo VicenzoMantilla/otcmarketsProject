@@ -19,8 +19,6 @@ npm init wdio .
 
 - Backend location: Local machine
 - Framework: jasmine
-- Compiler: Babel
-- Reporter: Spec & Allure
 - Tool: Chromedriver
 
 ## Run tests
