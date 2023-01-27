@@ -33,7 +33,7 @@ npm run wdio
 
 ```sh
 exclude: [
-        './test/specs/adbcf.e2e.js'
+        './test/specs/adbcf.js'
     ],
 ```
 It had to be exclude because it didn't pass the test in points 3 & 4. The reason is that unlike the other two tests ("OTCM" & "RHHBY"), this one does not have a Market Cap.
